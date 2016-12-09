@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2 class="jumbotron">Login</h2>
+<div class="well">
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+    {
+        <label for="inputEmail">Email Address</label>
+        @Html.TextBox("Email Address")
+
+        <label for="inputPassword">Password</label>
+        @Html.Password("Password")
+        <!--[AT-SIGN WAS HERE]Html.AntiForgeryToken()-->
+
+        <button type="submit">Login</button>
+
+
+    }
+</div>

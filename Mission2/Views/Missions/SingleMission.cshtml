@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Mission2.Models.MissionQuestions>
+@{
+    ViewBag.Title = "SingleMission";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/SingleMission.css" rel="stylesheet" />
+
+<!--Breadcrumb displays the location and gives users a chance to go to the root "folder" of their current location-->
+<ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="@Url.Action("index", "Missions")">Missions</a></li>
+        <li class="breadcrumb-item active">@ViewBag.missionName</li>
+    </ol>
+
+<!--Jumbotron includes all the mission metadata!-->
+<div class="jumbotron text-center">
+    <h2>@ViewBag.missionName Mission FAQ's</h2>
+    <div class="missionInfo">
+        <p>Mission President: @ViewBag.presName</p>
+        <p>Mission Address: @ViewBag.misAddress</p>
+        <p>Mission Language: @ViewBag.language</p>
+        <p>Mission Climate: @ViewBag.climate</p>
+        <p>Dominant Religion: @ViewBag.domReligion</p>
+    </div>
+</div>
+<div class="flagDiv text-center">
+    <img src="~/Content/ImageFolder/@{@ViewBag.flag}.png" width="400" />
+    <hr />
+</div>
+<div class="container">
+    <div class="faq">
+        <div class="question">
+            <!--FOREACH loop will show each question, answer, and the button to submit the answer-->
+            @foreach (var item in Model)
+            {
+
+                using (Html.BeginForm("answerQuestion", "Missions", new { missionQuestionID = item.MissionQuestionID, missionID = item.MissionID }))
+                {<div class="well">
+                    <!--Question vvvvvvv-->
+                    <h3><b>Question: @item.Question </b></h3>
+
+                    <!--Answer vvvvvvvvvv-->
+                    <p>Answer: @item.Answer </p>
+
+                    <!--TextArea, 100 columns wide and 5 rows high-->
+                    @Html.TextArea("Answer", new {@cols="100" , @rows="5" })
+                    <br /><br />
+                    <div class="text-center">
+                        <!--Submit Answer button will change the answer to the question.  Each question has one answer.-->
+                        <button type="submit" class="btn btn-lg btn-primary">Submit Answer</button>
+                    </div>
+                </div>
+                }
+
+                }
+                
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="well text-center">
+        <!--Form to create a brand new question.  Once submit Question is selected, the website will update with the new question
+            and the question will be added to the database!-->
+        @using (Html.BeginForm("postQuestion", "Missions", FormMethod.Post))
+        {
+            <br /><br />
+            <label for="asdf"><h1>Post Your Own Question</h1></label>
+            <hr />
+            <!--TextArea for the question is 40 columns wide and 4 rows high-->
+            @Html.TextArea("Question", new {@cols="40" , @rows="4" })<br />
+            <br />
+            <input type="hidden" name="hdnMission" value="@ViewBag.MissionID" id="hdnMission" />
+            <button type="submit" class="btn btn-lg btn-primary">Submit Question</button>
+        }
+    </div>
+</div>

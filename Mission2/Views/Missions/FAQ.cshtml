@@ -1,0 +1,58 @@
+﻿
+@model IEnumerable<Mission2.Models.MissionQuestions>
+@{
+    ViewBag.Title = "FAQ";
+}
+<h2>Frequently Asked Questions</h2>
+@foreach (var item in Model)
+{
+    using (Html.BeginForm("AnswerQuestion", "MissionQuestions", new { QuestionID = item.MissionQuestionID, MishID = item.MissionID }))
+    {
+
+        <h3>@Html.DisplayFor(Modelitem => item.Question)  </h3>
+        <p>@Html.DisplayFor(Modelitem => item.Answer)</p>
+        @Html.TextArea("Answer")
+        <br /><br />
+        <button type="submit">Submit Answer</button>
+    }
+
+}
+<div class="row">
+    <div class="well">
+        <form class="form-horizontal">
+            <fieldset>
+                <div class="form-group">
+                    <div class="col-sm-8">
+                        @Html.TextArea("Response", new { type = "text", id = "inputResponse", @class = "form-control", style = "Min-height: 50px", placeholder = "Input your response here", required = true })
+                    </div>
+                    <div class="col sm-4">
+                        <button type="reset" class="btn btn-default">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h1 class="panel-title">Ask a new Question</h1>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal">
+                <fieldset>
+                    <div class="form-group">
+                        <div class="col-sm-8">
+                            @Html.TextArea("Question", new { type = "text", id = "inputQuestion", @class = "form-control", style = "Min-height: 50px", placeholder = "Input your question here", required = true })
+                        </div>
+                        <div class="col sm-4">
+                            <button type="reset" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+

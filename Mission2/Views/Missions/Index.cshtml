@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<div class="well">
+    <h2 class="text-center">CHOOSE YOUR MISSION:</h2>
+
+    @model IEnumerable<Mission2.Models.Missions>
+
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <!--This well includes the missions and displays a button for users to select the mission!-->
+    <div class="well">
+        <div class="text-center">
+            @foreach (var item in Model)
+            {
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                @Html.ActionLink(item.MissionName, "SingleMission", new { MissionID = item.MissionID }, new { @class="btn btn-lg btn-primary"})
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            }
+        </div>
+    </div>
+
+</div>
